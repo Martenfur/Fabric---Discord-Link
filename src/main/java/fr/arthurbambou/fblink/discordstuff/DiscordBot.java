@@ -33,6 +33,8 @@ public class DiscordBot
 	private DiscordApi api = null;
 	private long startTime;
 	
+	private String forbiddenBoi = "Saving is already turned on";
+	
 	public DiscordBot(String token, FBLink.Config config)
 	{
 		this.lastMessageD = "";
@@ -146,6 +148,10 @@ public class DiscordBot
 	
 	public void sendMessage(Text text)
 	{
+		if (text.toString().contains(forbiddenBoi))
+		{
+			return;
+		}
 		if (this.api == null || (!this.hasChatChannels && !this.hasLogChannels)) return;
 		if (text.asString().equals(this.lastMessageD))
 		{
@@ -160,7 +166,6 @@ public class DiscordBot
 		
 		String key = ((TranslatableText) text).getKey();
 		String message = text.getString();
-		message = message.replaceAll("§[b0931825467adcfeklmnor]", "");
 		LOGGER.debug(this.config.toString());
 		if (key.equals("chat.type.text") && this.config.minecraftToDiscord.booleans.PlayerMessages)
 		{
@@ -200,6 +205,10 @@ public class DiscordBot
 	
 	private void sendToAllChannels(String message)
 	{
+		if (message.contains(forbiddenBoi))
+		{
+			return;
+		}
 		if (this.hasLogChannels)
 		{
 			for (String id : this.config.logChannels)
@@ -217,6 +226,10 @@ public class DiscordBot
 	 */
 	public void sendToLogChannels(String message)
 	{
+		if (message.contains(forbiddenBoi))
+		{
+			return;
+		}
 		if (this.hasLogChannels)
 		{
 			for (String id : this.config.logChannels)
@@ -231,6 +244,10 @@ public class DiscordBot
 	
 	private void sendToChatChannels(String message)
 	{
+		if (message.contains(forbiddenBoi))
+		{
+			return;
+		}
 		if (this.hasChatChannels)
 		{
 			for (String id : this.config.chatChannels)
