@@ -71,7 +71,8 @@ public class FBLink implements DedicatedServerModInitializer
 			{
 				fileWriter.write(gson.toJson(instanceConfig));
 				config = instanceConfig;
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
@@ -88,7 +89,8 @@ public class FBLink implements DedicatedServerModInitializer
 			{
 				fileWriter.write(gson.toJson(DefaultConfig));
 				config = DefaultConfig;
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
@@ -137,7 +139,8 @@ public class FBLink implements DedicatedServerModInitializer
 					config.minecraftToDiscord.messages.serverStopped = DefaultConfig.minecraftToDiscord.messages.serverStopped;
 				}
 				return saveConfig(config);
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}

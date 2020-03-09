@@ -53,7 +53,8 @@ public class DiscordBot
 		{
 			LOGGER.info("[FDLink] Please add a game chat channel to the config file!");
 			_hasChatChannels = false;
-		} else
+		}
+		else
 		{
 			_hasChatChannels = true;
 		}
@@ -62,12 +63,16 @@ public class DiscordBot
 		{
 			LOGGER.info("[FDLink] Please add a log channel to the config file!");
 			_hasLogChannels = false;
-		} else
+		}
+		else
 		{
 			_hasLogChannels = true;
 		}
 		
-		if (!_hasLogChannels && !_hasChatChannels) return;
+		if (!_hasLogChannels && !_hasChatChannels)
+		{
+			return;
+		}
 		
 		config.logChannels.removeIf(id -> config.chatChannels.contains(id));
 		
@@ -75,10 +80,22 @@ public class DiscordBot
 		DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 		api.addMessageCreateListener((event ->
 		{
-			if (event.getMessageAuthor().isBotUser() && _config.ignoreBots) return;
-			if (!_hasChatChannels) return;
-			if (event.getMessageAuthor().isYourself()) return;
-			if (!_config.chatChannels.contains(event.getChannel().getIdAsString())) return;
+			if (event.getMessageAuthor().isBotUser() && _config.ignoreBots)
+			{
+				return;
+			}
+			if (!_hasChatChannels)
+			{
+				return;
+			}
+			if (event.getMessageAuthor().isYourself())
+			{
+				return;
+			}
+			if (!_config.chatChannels.contains(event.getChannel().getIdAsString()))
+			{
+				return;
+			}
 			_messageCreateEvent = event;
 			_hasReceivedMessage = true;
 		}));
@@ -151,7 +168,10 @@ public class DiscordBot
 		{
 			return;
 		}
-		if (_api == null || (!_hasChatChannels && !_hasLogChannels)) return;
+		if (_api == null || (!_hasChatChannels && !_hasLogChannels))
+		{
+			return;
+		}
 		if (text.asString().equals(_lastMessageD))
 		{
 			return;
@@ -184,7 +204,8 @@ public class DiscordBot
 			}
 			sendToAllChannels(message);
 			
-		} else if (key.equals("chat.type.emote") || key.equals("chat.type.announcement") // Handling /me and /say command
+		}
+		else if (key.equals("chat.type.emote") || key.equals("chat.type.announcement") // Handling /me and /say command
 						|| (key.startsWith("multiplayer.player.") && _config.minecraftToDiscord.booleans.JoinAndLeftMessages)
 						|| (key.startsWith("chat.type.advancement.") && _config.minecraftToDiscord.booleans.AdvancementMessages)
 						|| (key.startsWith("death.") && _config.minecraftToDiscord.booleans.DeathMessages)
@@ -192,11 +213,13 @@ public class DiscordBot
 		{
 			sendToAllChannels(message);
 			
-		} else if (key.equals("chat.type.admin"))
+		}
+		else if (key.equals("chat.type.admin"))
 		{
 			sendToLogChannels(message);
 			
-		} else
+		}
+		else
 		{
 			LOGGER.info("[FDLink] Unhandled text \"{}\":{}", key, message);
 		}
@@ -235,7 +258,8 @@ public class DiscordBot
 			{
 				_api.getServerTextChannelById(id).ifPresent(channel -> channel.sendMessage(message));
 			}
-		} else
+		}
+		else
 		{
 			sendToChatChannels(message);
 		}
