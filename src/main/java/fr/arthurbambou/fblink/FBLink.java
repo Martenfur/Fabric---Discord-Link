@@ -165,14 +165,14 @@ public class FBLink implements DedicatedServerModInitializer
 		
 		public class MinecraftToDiscordMessage
 		{
-			public String serverStarting = "Server is starting !";
-			public String serverStarted = "Server Started";
-			public String serverStopped = "Server Stopped";
+			public String serverStarting = "Serber is starting!";
+			public String serverStarted = "Serber started.";
+			public String serverStopped = "Serber stopped.";
 		}
 		
 		public class MinecraftToDiscordBooleans
 		{
-			public boolean customChannelDescription = false;
+			public boolean customChannelDescription = true;
 			public boolean MCtoDiscordTag = false;
 			public boolean PlayerMessages = true;
 			public boolean JoinAndLeftMessages = true;
