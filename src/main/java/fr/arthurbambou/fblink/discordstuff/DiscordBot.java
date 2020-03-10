@@ -135,6 +135,11 @@ public class DiscordBot
 					}
 					_messageCreateEvent.getChannel().sendMessage("Players : " + server.getPlayerManager().getPlayerList().size() + "/" + server.getPlayerManager().getMaxPlayerCount() + "\n\n" + playerlist);
 				}
+				if (_messageCreateEvent.getMessageContent().startsWith("!salahip"))
+				{
+					_messageCreateEvent.getChannel().sendMessage("Current Salah ip: " + getFakeIp());
+				}
+				
 				_lastMessageD = _config.discordToMinecraft
 								.replace("%player", _messageCreateEvent.getMessageAuthor().getDisplayName())
 								.replace("%message", EmojiParser.parseToAliases(_messageCreateEvent.getMessageContent()));
@@ -279,5 +284,23 @@ public class DiscordBot
 				_api.getServerTextChannelById(id).ifPresent(channel -> channel.sendMessage(message));
 			}
 		}
+	}
+	
+	private String getFakeIp()
+	{
+		byte[] ip = new byte[4];
+		int swapIndex = (int)(Math.random() * 4);
+		for(int i = 0; i < 4; i += 1)
+		{
+			if (i == swapIndex)
+			{
+				ip[i] = (byte)(Math.random() * 256);
+			}
+			else
+			{
+				ip[i] = (byte)(256 + Math.random() * 32);
+			}
+		}
+		return ip[0] + "." + ip[1] + "." + ip[2] + "." + ip[3];
 	}
 }
