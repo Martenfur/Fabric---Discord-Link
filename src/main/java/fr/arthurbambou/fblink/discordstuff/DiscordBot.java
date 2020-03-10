@@ -121,7 +121,7 @@ public class DiscordBot
 			int maxPlayer = server.getPlayerManager().getMaxPlayerCount();
 			if (_hasReceivedMessage)
 			{
-				if (_messageCreateEvent.getMessageContent().startsWith("!playlist"))
+				if (_messageCreateEvent.getMessageContent().startsWith("!list"))
 				{
 					StringBuilder playerlist = new StringBuilder();
 					for (PlayerEntity playerEntity : server.getPlayerManager().getPlayerList())
