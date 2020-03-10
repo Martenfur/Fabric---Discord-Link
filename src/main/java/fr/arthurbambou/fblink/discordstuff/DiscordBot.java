@@ -185,6 +185,7 @@ public class DiscordBot
 		
 		String key = ((TranslatableText) text).getKey();
 		String message = text.getString();
+		message = message.replaceAll("§[b0931825467adcfeklmnor]", "");
 		LOGGER.debug(_config.toString());
 		if (key.equals("chat.type.text") && _config.minecraftToDiscord.booleans.PlayerMessages)
 		{
